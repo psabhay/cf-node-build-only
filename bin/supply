@@ -20,6 +20,6 @@ CACHE_DIR=$2
 DEPS_DIR=$3
 INDEX=$4
 
-curl -sL https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz
+curl -sL https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz > /dev/null
 tar xf node-v14.18.0-linux-x64.tar.xz && mv node-v14.18.0-linux-x64 node14
 node14/bin/npm run build
