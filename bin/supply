@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/
 
 # Cloud Foundry Markdown Buildpack
 # Copyright (c) 2018 Pivotal Software, Inc.
@@ -25,6 +25,4 @@ curl -sL https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz --outpu
 tar xf $BUILD_DIR/node-v14.18.0-linux-x64.tar.xz --directory $BUILD_DIR
 mv $BUILD_DIR/node-v14.18.0-linux-x64 $BUILD_DIR/node
 export PATH="$PATH:$BUILD_DIR/node/bin"
-cp $BUILD_DIR/package.json .
-cp $BUILD_DIR/package.lock .
-npm run build
+cd $BUILD_DIR && npm run build
