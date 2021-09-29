@@ -20,12 +20,11 @@ CACHE_DIR=$2
 DEPS_DIR=$3
 INDEX=$4
 
-export BUILDPACK_DIR=`dirname $(readlink -f ${BASH_SOURCE%/*})`
 
 curl -sL https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz --output "$BUILD_DIR/node-v14.18.0-linux-x64.tar.xz"  > /dev/null
 tar xf $BUILD_DIR/node-v14.18.0-linux-x64.tar.xz --directory $BUILD_DIR
 mv $BUILD_DIR/node-v14.18.0-linux-x64 $BUILD_DIR/node
 export PATH="$PATH:$BUILD_DIR/node/bin"
-cp $BUILDPACK_DIR/package.json .
-cp $BUILDPACK_DIR/package.lock .
+cp $BUILD_DIR/package.json .
+cp $BUILD_DIR/package.lock .
 npm run build
