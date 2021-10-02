@@ -21,7 +21,7 @@ DEPS_DIR=$3
 INDEX=$4
 BIN_TEMP="/tmp/node_build_only"
 
-
+mkdir -p $BIN_TEMP
 echo "Downloading node binaries.."
 curl -sL https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz --output "$BIN_TEMP/node-v14.18.0-linux-x64.tar.xz"  > /dev/null
 if [[ $? != 0 ]] ; then
