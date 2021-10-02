@@ -75,6 +75,7 @@ echo "Run npm install and then build"
 npm install && npm run build
 
 # Now finally move the content of new app base into the build dir back
-mv "$NEW_APP_BASE/app" $BUILD_DIR
+rm -rf /tmp/app
+mv "$NEW_APP_BASE/app" /tmp/
 
 
