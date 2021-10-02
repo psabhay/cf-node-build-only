@@ -23,12 +23,16 @@ BIN_TEMP="/tmp/node_build_only"
 
 
 echo "Downloading node binaries.."
-curl -s https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz | tar xv -C "$BIN_TEMP/node14" &> /dev/null
+curl -sL https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz --output "$BIN_TEMP/node-v14.18.0-linux-x64.tar.xz"  > /dev/null
 if [[ $? != 0 ]] ; then
     echo "Could not download node binaries"
     exit 1
 fi
 echo "node binaries are download successfully."
+
+tar xf $BIN_TEMP/node-v14.18.0-linux-x64.tar.xz --directory $BIN_TEMP
+mv $BIN_TEMP/node-v14.18.0-linux-x64 $BIN_TEMP/node14
+
 
 # Put node binaries in the PATH
 export PATH="$PATH:$BIN_TEMP/node14/bin"
