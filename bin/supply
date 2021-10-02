@@ -44,7 +44,7 @@ npm --version
 
 
 # make a directory in cache for building the build the react app
-NEW_APP_BASE="$CACHE_DIR/node_build_only/base"
+NEW_APP_BASE="$CACHE_DIR/node_build_only"
 echo "Creating a new temp folder for app in cache dir - $NEW_APP_BASE"
 mkdir -p $NEW_APP_BASE
 if [[ $? != 0 ]] ; then
@@ -58,7 +58,7 @@ echo "Show BUILD_DIR conten"
 ls -lah $BUILD_DIR
 
 echo "Copy BUILD_DIR contents to $NEW_APP_BASE"
-cp -rv "$BUILD_DIR/*" $NEW_APP_BASE
+cp -rv "$BUILD_DIR" $NEW_APP_BASE
 if [[ $? != 0 ]] ; then
     echo "Failed to copy BUILD_DIR to $NEW_APP_BASE"
     exit 1
@@ -66,15 +66,15 @@ fi
 
 # now change to the new app base and run build
 echo "Change directory to NEW_APP_BASE"
-cd $NEW_APP_BASE
+cd "$NEW_APP_BASE/app" || exit 1
 
 echo "show content to NEW_APP_BASE"
-ls -lah $NEW_APP_BASE
+ls -lah "$NEW_APP_BASE/app"
 
 echo "Run npm install and then build"
 npm install && npm run build
 
 # Now finally move the content of new app base into the build dir back
-mv "$NEW_APP_BASE/*" $BUILD_DIR/
+mv "$NEW_APP_BASE/app" $BUILD_DIR
 
 
