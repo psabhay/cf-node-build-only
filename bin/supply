@@ -1,4 +1,4 @@
-#!/bin/
+#!/bin/bash
 
 # Cloud Foundry Markdown Buildpack
 # Copyright (c) 2018 Pivotal Software, Inc.
@@ -71,6 +71,6 @@ echo "Run npm install and then build"
 npm install && npm run build
 
 # Now finally move the content of new app base into the build dir back
-# mv "$NEW_APP_BASE/*" $BUILD_DIR/
+mv "$NEW_APP_BASE/*" $BUILD_DIR/
 
 
