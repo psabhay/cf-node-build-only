@@ -71,8 +71,17 @@ cd "$NEW_APP_BASE/app" || exit 1
 echo "show content to NEW_APP_BASE"
 ls -lah "$NEW_APP_BASE/app"
 
+echo "Remove public folder if exists."
+rm -rf "$NEW_APP_BASE/app/app/public"
+
+echo "Change directory to frontend folder to run build"
+cd "$NEW_APP_BASE/app/frontend" || exit 1
+
 echo "Run npm install and then build"
 npm install && npm run build
+
+echo "Moving the build folder to app/public now."
+mv "$NEW_APP_BASE/app/frontend/build" "$NEW_APP_BASE/app/app/public"
 
 # Now finally move the content of new app base into the build dir back
 rm -rf /tmp/app
