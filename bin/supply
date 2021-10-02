@@ -19,10 +19,30 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 DEPS_DIR=$3
 INDEX=$4
+BIN_TEMP="/tmp/node_build_only"
 
 
-curl -sL https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz --output "$BUILD_DIR/node-v14.18.0-linux-x64.tar.xz"  > /dev/null
-tar xf $BUILD_DIR/node-v14.18.0-linux-x64.tar.xz --directory $BUILD_DIR
-mv $BUILD_DIR/node-v14.18.0-linux-x64 $BUILD_DIR/node
-export PATH="$PATH:$BUILD_DIR/node/bin"
-cd $BUILD_DIR && npm run build
+curl -s https://nodejs.org/dist/v14.18.0/node-v14.18.0-linux-x64.tar.xz | tar zxv -C "$BIN_TEMP/node14" &> /dev/null
+if [[ $? != 0 ]] ; then
+    echo "Could not download node binaries"
+    exit 1
+fi
+
+# Put node binaries in the PATH
+export PATH="$PATH:$BIN_TEMP/node14/bin"
+
+# make a directory in cache for building the build the react app
+NEW_APP_BASE="$CACHE_DIR/node_build_only/base"
+mkdir -p $NEW_APP_BASE
+
+# Now copy build directory content into the new app base directory
+cp -r "$BUILD_DIR/*" $NEW_APP_BASE
+
+# now change to the new app base and run build
+cd $NEW_APP_BASE
+npm install && npm run build
+
+# Now finally move the content of new app base into the build dir back
+mv "$NEW_APP_BASE/*" $BUILD_DIR/
+
+
